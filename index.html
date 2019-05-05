@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .wrap {
+            margin: 0 auto;
+            width: 100%;
+            height: 100vh;
+            background-color: #F1E9DE;
+            font-family: 'Roboto', sans-serif;
+            padding: 40px 20px 20px 20px;
+        }
+
+        p {
+            font-size: 2.5rem;
+            text-align: center;
+            color: #0A3A59;
+        }
+
+        .heart span {
+            display: block;
+            width: 100%;
+            padding: 10px 0 10px 0;
+            text-align: center;
+        }
+
+        .heart span i {
+            font-size: 4rem;
+            color: #F42725;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0A3A59;
+            font-size: 2.5rem;
+        }
+
+        h1 p:nth-child(2),
+        h1 p:nth-child(3),
+        h1 p:nth-child(4) {
+            display: inline-block;
+            font-size: 1.8rem;
+        }
+
+        .heartActive {
+            opacity: .1;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <p>We are together in: </p>
+        <div class="heart"><span><i class="fas fa-heart"></i></span></div>
+        <h1>
+            <p><span class="d">.</span> days</p>
+            <p><span class="h">.</span> h.</p>
+            <p><span class="m">.</span> min.</p>
+            <p><span class="s">.</span> sec.</p>
+        </h1>
+    </div>
+
+    <script>
+        //timer
+        const endTime = new Date('2019-05-24 14:00:00').getTime();
+
+        const spanD = document.querySelector('span.d')
+        const spanH = document.querySelector('span.h')
+        const spanM = document.querySelector('span.m')
+        const spanS = document.querySelector('span.s')
+
+        setInterval(() => {
+            const nowTime = new Date().getTime();
+            /*const time = Math.floor((endTime - nowTime) /1000);*/
+
+            const days = Math.floor((endTime / (1000 * 60 * 60 * 24)) - (nowTime / (1000 * 60 * 60 * 24)));
+
+            let houres = Math.floor((endTime / (1000 * 60 * 60) - nowTime / (1000 * 60 * 60)) % 24);
+            houres = houres < 10 ? `0${houres}` : houres;
+
+            let minutes = Math.floor((endTime / (1000 * 60) - nowTime / (1000 * 60)) % 60);
+            minutes = minutes < 10 ? `0${minutes}` : minutes;
+
+            let seconds = Math.floor((endTime / (1000) - nowTime / (1000)) % 60);
+            seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+
+            spanD.textContent = days;
+            spanH.textContent = houres;
+            spanM.textContent = minutes;
+            spanS.textContent = seconds;
+
+        }, 1000);
+
+        //heart animation
+
+        const heart = document.querySelector('.heart span i');
+        setInterval(() => {
+            heart.classList.toggle('heartActive');
+        }, 1000);
+    </script>
+</body>
+
+</html>
