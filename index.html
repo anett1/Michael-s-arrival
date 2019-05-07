@@ -32,15 +32,14 @@
             text-align: center;
             color: #0A3A59;
         }
-
-        .heart span {
-            display: block;
+        #heart {
             width: 100%;
             padding: 10px 0 10px 0;
             text-align: center;
+            opacity: 0;
         }
 
-        .heart span i {
+        #heart i {
             font-size: 4rem;
             color: #F42725;
         }
@@ -58,22 +57,21 @@
             font-size: 1.8rem;
         }
 
-        .heartActive {
-            opacity: .1;
-
-        }
     </style>
 </head>
 
 <body>
     <div class="wrap">
         <p>We are together in: </p>
-        <div class="heart"><span><i class="fas fa-heart"></i></span></div>
+        <div id="heart">
+                <i class="fas fa-heart"></i>
+
+        </div>
         <h1>
-            <p><span class="d">.</span> days</p>
-            <p><span class="h">.</span> h.</p>
-            <p><span class="m">.</span> min.</p>
-            <p><span class="s">.</span> sec.</p>
+            <p><span class="d">00</span> days</p>
+            <p><span class="h">00</span> h.</p>
+            <p><span class="m">00</span> min.</p>
+            <p><span class="s">00</span> sec.</p>
         </h1>
     </div>
 
@@ -85,6 +83,7 @@
         const spanH = document.querySelector('span.h')
         const spanM = document.querySelector('span.m')
         const spanS = document.querySelector('span.s')
+        var faint;
 
         setInterval(() => {
             const nowTime = new Date().getTime();
@@ -101,20 +100,23 @@
             let seconds = Math.floor((endTime / (1000) - nowTime / (1000)) % 60);
             seconds = seconds < 10 ? `0${seconds}` : seconds;
 
-
             spanD.textContent = days;
             spanH.textContent = houres;
             spanM.textContent = minutes;
             spanS.textContent = seconds;
-
+            faint = 1 - (days/20);
         }, 1000);
-
         //heart animation
 
-        const heart = document.querySelector('.heart span i');
+        const heart = document.querySelector('#heart');
         setInterval(() => {
-            heart.classList.toggle('heartActive');
+            if (heart.style.opacity != 0) {
+                heart.style.opacity = 0;
+            } else {
+                heart.style.opacity = faint;
+            }
         }, 1000);
+
     </script>
 </body>
 
